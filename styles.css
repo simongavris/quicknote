@@ -4,10 +4,11 @@ body, html, textarea {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    overflow-y: auto;
-    max-height: 100vh;
 }
-
+#editor {
+    overflow-y: auto;
+    max-height: 95vh;
+  }
 textarea#editor {
     resize: none;
     border: none;
@@ -25,10 +26,12 @@ textarea#editor {
   }
   
   /* Footer */
-#footer {
+  #footer {
     text-align: center;
     position: fixed;
     bottom: 0;
+    left: 0; 
+    right: 0;
     width: 100%;
   }
   
