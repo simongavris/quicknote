@@ -6,9 +6,18 @@ body, html, textarea {
     overflow: hidden;
 }
 #editor {
-    overflow-y: auto;
-    max-height: 95vh;
+    width: 100%;
+    min-height: 100vh; /* Full viewport height */
+    overflow-y: auto;  /* Scrollbar when needed */
+    resize: none;      /* Disable manual resize */
+    box-sizing: border-box; /* Padding and border included in width */
   }
+  @media only screen and (max-width: 600px) {
+    #editor {
+      font-size: 14px;
+    }
+    /* Add more responsive rules */
+  }  
 textarea#editor {
     resize: none;
     border: none;
