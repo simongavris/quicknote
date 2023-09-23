@@ -44,3 +44,4 @@ This will run the container mapped to http://localhost:8080 for local developmen
 * Access the app via your browser at the configured domain.
 * Start typing to use the text editor.
 * Reload the page and find your notes again.
+* Share between clients with fancy encodig.

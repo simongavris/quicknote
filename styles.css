@@ -4,6 +4,8 @@ body, html, textarea {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    overflow-y: auto;
+    max-height: 100vh;
 }
 
 textarea#editor {
@@ -12,4 +14,51 @@ textarea#editor {
     box-sizing: border-box;
     outline: none;
     font-family: "Courier New", monospace;  /* Optional: Use a monospace font */
-}
+}  
+  .github-link {
+    color: #777;
+    text-decoration: none;
+  }
+  
+  .github-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footer */
+#footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  /* Share Button */
+  #shareButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Toast */
+  .toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+    font-family: Arial, sans-serif;  
+    border-radius: 2px;
+    padding: 16px;
+    transform: translateX(-50%); 
+  }
+  
