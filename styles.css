@@ -1,0 +1,15 @@
+body, html, textarea {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+textarea#editor {
+    resize: none;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Courier New", monospace;  /* Optional: Use a monospace font */
+}

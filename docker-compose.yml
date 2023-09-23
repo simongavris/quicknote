@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  quicknote:
+    build: .
+    labels:
+      - traefik.enable=true
+      - traefik.network=proxy
+      - traefik.http.routers.quicknote.rule=Host("quicknote.bblbrx.de")
+      - traefik.http.routers.quicknote.entrypoints=websecure
+      - traefik.http.routers.quicknote.tls.certresolver=defaultresolver
+      - traefik.http.services.quicknote.loadbalancer.server.port=80
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

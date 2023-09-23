@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  quicknote:
+    ports:
+      - "8080:80"
+    networks:
+      - default
+    labels:
+      - traefik.enable=false
+
+networks:
+  proxy:
+    external: false
+  default:
+    external: false
