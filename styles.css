@@ -32,6 +32,7 @@ textarea#editor {
   
   .github-link:hover {
     text-decoration: underline;
+    pointer-events: auto;
   }
   
   /* Footer */
@@ -42,6 +43,7 @@ textarea#editor {
     left: 0; 
     right: 0;
     width: 100%;
+    pointer-events: none;
   }
   
   /* Share Button */
