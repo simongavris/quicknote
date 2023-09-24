@@ -28,11 +28,11 @@ textarea#editor {
   .github-link {
     color: #777;
     text-decoration: none;
+    pointer-events: auto;
   }
   
   .github-link:hover {
     text-decoration: underline;
-    pointer-events: auto;
   }
   
   /* Footer */
