@@ -2,6 +2,27 @@ function getStorageKey() {
     return 'quickNote' + window.location.pathname;
   }
 
+  // Get the current pathname from the URL
+const pathname = window.location.pathname;
+
+// Remove the leading slash
+const trimmedPath = pathname.replace(/^\//, '');
+
+// Check if there is a subpath
+if (trimmedPath) {
+  // Split the subpath into its components
+  const pathComponents = trimmedPath.split('/');
+
+  // Join the components with " – "
+  const titleSuffix = pathComponents.join(' – ');
+
+  // Set the new title
+  document.title = `Quicknote: ${titleSuffix}`;
+} else {
+  // Set the default title if there is no subpath
+  document.title = 'Quicknote';
+}
+
 // Load content from local storage or URL parameter
 document.addEventListener("DOMContentLoaded", function() {
     const editor = document.getElementById('editor');
