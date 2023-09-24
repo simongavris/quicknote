@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (compressedNote) {
       const decompressedNote = LZString.decompressFromEncodedURIComponent(compressedNote);
       editor.value = decompressedNote;
-      localStorage.setItem(storageKey, decompressedNote); // Optionally update local storage
+      localStorage.setItem(storageKey, decompressedNote);
+      const url = new URL(window.location.href);
+      const newPath = url.origin + url.pathname; // This will include the path but not the query parameters
+      history.replaceState(null, null, newPath);
     } else {
       editor.value = localStorage.getItem(storageKey) || '';
     }
