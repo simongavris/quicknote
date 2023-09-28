@@ -51,12 +51,6 @@ document.addEventListener("DOMContentLoaded", function() {
     editor.addEventListener('input', function() {
       localStorage.setItem(storageKey, editor.value);
     });
-  
-    const shareButton = document.getElementById('shareButton');
-    shareButton.addEventListener('click', function() {
-      const shareableUrl = generateShareableUrl(editor.value);
-      copyToClipboard(shareableUrl);
-    });
   });
 
 
@@ -76,16 +70,6 @@ function showToast(message) {
     setTimeout(() => toast.style.visibility = 'hidden', 3000);
   }
   
-  // Add event listener to "Share" button
-  document.addEventListener("DOMContentLoaded", function() {
-    const shareButton = document.getElementById('shareButton');
-    shareButton.addEventListener('click', function() {
-      const editor = document.getElementById('editor');
-      const shareableUrl = generateShareableUrl(editor.value);
-      copyToClipboard(shareableUrl);
-    });
-  });
-  
   // Function to copy text to clipboard
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
@@ -95,3 +79,38 @@ function showToast(message) {
     });
   }
   
+
+
+// MENU
+const menuIcon = document.getElementById("hamburger-menu");
+const menuOptions = document.getElementById("menu-options");
+const shareItem = document.getElementById("share");
+const downloadItem = document.getElementById("download");
+const saveItem = document.getElementById("save");
+
+
+// Toggle menu on clicking the circle
+menuIcon.addEventListener('click', function() {
+  menuOptions.classList.toggle('show');
+});
+
+// SHARE BUTTON
+shareItem.addEventListener('click', function() {
+  const editor = document.getElementById('editor');
+  const shareableUrl = generateShareableUrl(editor.value);
+  copyToClipboard(shareableUrl);
+  event.stopPropagation();
+  menuOptions.classList.remove('show');
+});
+
+// Add download functionality (no functionality yet)
+downloadItem.addEventListener('click', function() {
+  // Placeholder for download logic...
+  menuOptions.classList.remove('show');
+});
+
+// Add save functionality (no functionality yet)
+saveItem.addEventListener('click', function() {
+  // Placeholder for save logic...
+  menuOptions.classList.remove('show');
+});

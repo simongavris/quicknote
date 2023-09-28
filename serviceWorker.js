@@ -1,4 +1,4 @@
-const cacheName = 'quicknote-v1';
+const cacheName = 'quicknote-v2';
 const assetsToCache = [
   '/',
   '/index.html',
