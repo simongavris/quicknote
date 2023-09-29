@@ -1,80 +1,92 @@
-body, html, textarea {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+body,
+html,
+textarea {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
+
 #editor {
-    width: 100%;
-    min-height: 100vh; /* Full viewport height */
-    overflow-y: auto;  /* Scrollbar when needed */
-    resize: none;      /* Disable manual resize */
-    box-sizing: border-box; /* Padding and border included in width */
-  }
-  @media only screen and (max-width: 600px) {
-    #editor {
-      font-size: 14px;
-    }
-    /* Add more responsive rules */
-  }  
-textarea#editor {
-    resize: none;
-    border: none;
-    box-sizing: border-box;
-    outline: none;
-    font-family: "Courier New", monospace;  /* Optional: Use a monospace font */
-}  
-  .github-link {
-    color: #777;
-    text-decoration: none;
-    pointer-events: auto;
-  }
-  
-  .github-link:hover {
-    text-decoration: underline;
-  }
-  
-  /* Footer */
-  #footer {
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0; 
-    right: 0;
-    width: 100%;
-    pointer-events: none;
-    font-family: Arial, sans-serif;  
-  }
-  
-  
-  /* Toast */
-  .toast {
-    visibility: hidden;
-    min-width: 250px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-    font-family: Arial, sans-serif;  
-    border-radius: 2px;
-    padding: 16px;
-    transform: translateX(-50%); 
+  width: 100%;
+  min-height: 100vh;
+  /* Full viewport height */
+  overflow-y: auto;
+  /* Scrollbar when needed */
+  resize: none;
+  /* Disable manual resize */
+  box-sizing: border-box;
+  /* Padding and border included in width */
+}
+
+@media only screen and (max-width: 600px) {
+  #editor {
+    font-size: 14px;
   }
 
-  /* Hamburger Menu */
+  /* Add more responsive rules */
+}
+
+textarea#editor {
+  resize: none;
+  border: none;
+  box-sizing: border-box;
+  outline: none;
+  font-family: "Courier New", monospace;
+  /* Optional: Use a monospace font */
+}
+
+.github-link {
+  color: #777;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+#footer {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  pointer-events: none;
+  font-family: Arial, sans-serif;
+}
+
+
+/* Toast */
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  font-family: Arial, sans-serif;
+  border-radius: 2px;
+  padding: 16px;
+  transform: translateX(-50%);
+}
+
+/* Hamburger Menu */
 
 
 #menu-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 10;
-  }
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+}
 
 .menu-circle {
   position: fixed;
@@ -126,13 +138,15 @@ textarea#editor {
   backdrop-filter: blur(1px);
   border-radius: 4px;
   overflow: hidden;
-  display: none; /* Initially hidden */
+  display: none;
+  /* Initially hidden */
   font-family: Arial, sans-serif;
   color: #484747;
 }
 
 .menu-options.show {
-  display: block; /* Shown when the hamburger is clicked */
+  display: block;
+  /* Shown when the hamburger is clicked */
 }
 
 .menu-item {
