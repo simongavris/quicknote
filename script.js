@@ -16,8 +16,8 @@ if (trimmedPath) {
   // Join the components with " – "
   const titleSuffix = pathComponents.join(' – ');
 
-  // Set the new title
-  document.title = `Quicknote: ${titleSuffix}`;
+  // Set the new title with the decoded string as the suffix
+  document.title = `Quicknote: ${decodeURIComponent(titleSuffix)}`;
 } else {
   // Set the default title if there is no subpath
   document.title = 'Quicknote';
