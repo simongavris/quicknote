@@ -55,7 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Restore zoom level from localStorage
   const savedZoom = localStorage.getItem('quicknote-zoom');
   if (savedZoom) {
-    editor.style.fontSize = savedZoom + 'px';
+    const zoomValue = parseInt(savedZoom);
+    // Validate the zoom value is within acceptable bounds
+    if (!isNaN(zoomValue) && zoomValue >= 8 && zoomValue <= 48) {
+      editor.style.fontSize = zoomValue + 'px';
+    }
   }
 });
 
@@ -129,20 +133,21 @@ const MIN_FONT_SIZE = 8;
 const MAX_FONT_SIZE = 48;
 const ZOOM_STEP = 2;
 
+// Cache editor reference for zoom operations
+const editorElement = document.getElementById('editor');
+
 function getCurrentFontSize() {
-  const editor = document.getElementById('editor');
-  const currentSize = window.getComputedStyle(editor).fontSize;
+  const currentSize = window.getComputedStyle(editorElement).fontSize;
   return parseInt(currentSize);
 }
 
 function setFontSize(size) {
-  const editor = document.getElementById('editor');
-  editor.style.fontSize = size + 'px';
+  editorElement.style.fontSize = size + 'px';
   localStorage.setItem('quicknote-zoom', size);
 }
 
 // Zoom in button
-zoomInItem.addEventListener('click', function () {
+zoomInItem.addEventListener('click', function (event) {
   const currentSize = getCurrentFontSize();
   const newSize = Math.min(currentSize + ZOOM_STEP, MAX_FONT_SIZE);
   setFontSize(newSize);
@@ -151,7 +156,7 @@ zoomInItem.addEventListener('click', function () {
 });
 
 // Zoom out button
-zoomOutItem.addEventListener('click', function () {
+zoomOutItem.addEventListener('click', function (event) {
   const currentSize = getCurrentFontSize();
   const newSize = Math.max(currentSize - ZOOM_STEP, MIN_FONT_SIZE);
   setFontSize(newSize);
