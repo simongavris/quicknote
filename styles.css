@@ -29,12 +29,11 @@ textarea {
 }
 
 textarea#editor {
-  resize: none;
   border: none;
-  box-sizing: border-box;
   outline: none;
   font-family: "Courier New", monospace;
   /* Optional: Use a monospace font */
+  padding: 8px;
 }
 
 .github-link {
