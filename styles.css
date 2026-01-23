@@ -29,10 +29,8 @@ textarea {
 }
 
 textarea#editor {
-  resize: none;
   border: 2px solid #0078d7;
   border-radius: 4px;
-  box-sizing: border-box;
   outline: none;
   font-family: "Courier New", monospace;
   /* Optional: Use a monospace font */
