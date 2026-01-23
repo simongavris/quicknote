@@ -29,18 +29,11 @@ textarea {
 }
 
 textarea#editor {
-  border: 2px solid #0078d7;
-  border-radius: 4px;
+  border: none;
   outline: none;
   font-family: "Courier New", monospace;
   /* Optional: Use a monospace font */
   padding: 8px;
-}
-
-textarea#editor:focus {
-  outline: none;
-  border-color: #005fa3;
-  box-shadow: 0 0 0 2px #cce9ff;
 }
 
 .github-link {
