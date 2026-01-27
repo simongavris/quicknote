@@ -162,3 +162,100 @@ textarea#editor {
 .hide {
   display: none !important;
 }
+
+/* Notes Side Menu */
+.notes-menu-toggle {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: background-color 0.2s;
+}
+
+.notes-menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.toggle-icon {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  user-select: none;
+}
+
+.notes-menu {
+  position: fixed;
+  right: -300px;
+  top: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  border-left: 1px solid #ccc;
+}
+
+.notes-menu.open {
+  right: 0;
+}
+
+.notes-menu-header {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  z-index: 1;
+}
+
+.notes-list {
+  padding: 10px 0;
+}
+
+.note-item {
+  padding: 12px 20px;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+  overflow-wrap: break-word;
+}
+
+.note-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.note-item.active {
+  background-color: rgba(100, 100, 255, 0.1);
+  font-weight: bold;
+}
+
+.notes-list-empty {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}

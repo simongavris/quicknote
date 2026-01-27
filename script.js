@@ -165,3 +165,97 @@ zoomOutItem.addEventListener('click', function (event) {
   setFontSize(newSize);
   // Do not close the menu
 });
+
+
+// NOTES SIDE MENU
+const notesMenuToggle = document.getElementById('notes-menu-toggle');
+const notesMenu = document.getElementById('notes-menu');
+const notesList = document.getElementById('notes-list');
+const toggleIcon = notesMenuToggle.querySelector('.toggle-icon');
+
+// Chevron icon constants
+const CHEVRON_CLOSED = '<';
+const CHEVRON_OPEN = '>';
+
+// Toggle notes menu
+notesMenuToggle.addEventListener('click', function () {
+  notesMenu.classList.toggle('open');
+  // Update icon based on menu state
+  if (notesMenu.classList.contains('open')) {
+    toggleIcon.textContent = CHEVRON_OPEN;
+    refreshNotesList();
+  } else {
+    toggleIcon.textContent = CHEVRON_CLOSED;
+  }
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', function (event) {
+  if (!notesMenu.contains(event.target) && !notesMenuToggle.contains(event.target)) {
+    notesMenu.classList.remove('open');
+    toggleIcon.textContent = CHEVRON_CLOSED;
+  }
+});
+
+// Function to get all notes from localStorage
+function getAllNotes() {
+  const notes = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('quickNote')) {
+      // Extract the path from the key (remove 'quickNote' prefix)
+      const path = key.substring(9) || '/';
+      notes.push(path);
+    }
+  }
+  // Sort notes alphabetically
+  notes.sort();
+  return notes;
+}
+
+// Function to refresh the notes list
+function refreshNotesList() {
+  const notes = getAllNotes();
+  const currentPath = window.location.pathname;
+
+  if (notes.length === 0) {
+    notesList.innerHTML = '<div class="notes-list-empty">No notes yet. Start typing to create one!</div>';
+    return;
+  }
+
+  notesList.innerHTML = '';
+  notes.forEach(path => {
+    const noteItem = document.createElement('div');
+    noteItem.className = 'note-item';
+    noteItem.textContent = path;
+
+    // Highlight current note
+    if (path === currentPath) {
+      noteItem.classList.add('active');
+    }
+
+    // Navigate to note on click
+    noteItem.addEventListener('click', function () {
+      window.location.pathname = path;
+    });
+
+    notesList.appendChild(noteItem);
+  });
+}
+
+// Refresh notes list when editor changes (with debounce)
+let refreshTimeout;
+editorElement.addEventListener('input', function () {
+  clearTimeout(refreshTimeout);
+  refreshTimeout = setTimeout(function () {
+    if (notesMenu.classList.contains('open')) {
+      refreshNotesList();
+    }
+  }, 1000);
+});
+
+// Initial refresh when page loads
+document.addEventListener('DOMContentLoaded', function () {
+  // Use microtask to ensure other DOMContentLoaded handlers run first
+  Promise.resolve().then(refreshNotesList);
+});
