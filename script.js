@@ -246,6 +246,6 @@ editorElement.addEventListener('input', function () {
 
 // Initial refresh when page loads
 document.addEventListener('DOMContentLoaded', function () {
-  // Delay initial refresh to ensure other DOMContentLoaded handlers run first
-  setTimeout(refreshNotesList, 100);
+  // Use microtask to ensure other DOMContentLoaded handlers run first
+  Promise.resolve().then(refreshNotesList);
 });

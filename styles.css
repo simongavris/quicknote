@@ -237,7 +237,7 @@ textarea#editor {
   cursor: pointer;
   border-bottom: 1px solid #eee;
   transition: background-color 0.2s;
-  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .note-item:hover {
