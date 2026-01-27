@@ -148,18 +148,20 @@ function setFontSize(size) {
 
 // Zoom in button
 zoomInItem.addEventListener('click', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
   const currentSize = getCurrentFontSize();
   const newSize = Math.min(currentSize + ZOOM_STEP, MAX_FONT_SIZE);
   setFontSize(newSize);
-  event.stopPropagation();
-  menuOptions.classList.remove('show');
+  // Do not close the menu
 });
 
 // Zoom out button
 zoomOutItem.addEventListener('click', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
   const currentSize = getCurrentFontSize();
   const newSize = Math.max(currentSize - ZOOM_STEP, MIN_FONT_SIZE);
   setFontSize(newSize);
-  event.stopPropagation();
-  menuOptions.classList.remove('show');
+  // Do not close the menu
 });
