@@ -51,6 +51,16 @@ document.addEventListener("DOMContentLoaded", function () {
   editor.addEventListener('input', function () {
     localStorage.setItem(storageKey, editor.value);
   });
+
+  // Restore zoom level from localStorage
+  const savedZoom = localStorage.getItem('quicknote-zoom');
+  if (savedZoom) {
+    const zoomValue = parseInt(savedZoom);
+    // Validate the zoom value is within acceptable bounds
+    if (!isNaN(zoomValue) && zoomValue >= 8 && zoomValue <= 48) {
+      editor.style.fontSize = zoomValue + 'px';
+    }
+  }
 });
 
 
@@ -87,6 +97,8 @@ const menuOptions = document.getElementById("menu-options");
 const shareItem = document.getElementById("share");
 const downloadItem = document.getElementById("download");
 const saveItem = document.getElementById("save");
+const zoomInItem = document.getElementById("zoom-in");
+const zoomOutItem = document.getElementById("zoom-out");
 
 
 // Toggle menu on clicking the circle
@@ -112,5 +124,42 @@ downloadItem.addEventListener('click', function () {
 // Add save functionality (no functionality yet)
 saveItem.addEventListener('click', function () {
   // Placeholder for save logic...
+  menuOptions.classList.remove('show');
+});
+
+// ZOOM CONTROLS
+const DEFAULT_FONT_SIZE = 16;
+const MIN_FONT_SIZE = 8;
+const MAX_FONT_SIZE = 48;
+const ZOOM_STEP = 2;
+
+// Cache editor reference for zoom operations
+const editorElement = document.getElementById('editor');
+
+function getCurrentFontSize() {
+  const currentSize = window.getComputedStyle(editorElement).fontSize;
+  return parseInt(currentSize);
+}
+
+function setFontSize(size) {
+  editorElement.style.fontSize = size + 'px';
+  localStorage.setItem('quicknote-zoom', size);
+}
+
+// Zoom in button
+zoomInItem.addEventListener('click', function (event) {
+  const currentSize = getCurrentFontSize();
+  const newSize = Math.min(currentSize + ZOOM_STEP, MAX_FONT_SIZE);
+  setFontSize(newSize);
+  event.stopPropagation();
+  menuOptions.classList.remove('show');
+});
+
+// Zoom out button
+zoomOutItem.addEventListener('click', function (event) {
+  const currentSize = getCurrentFontSize();
+  const newSize = Math.max(currentSize - ZOOM_STEP, MIN_FONT_SIZE);
+  setFontSize(newSize);
+  event.stopPropagation();
   menuOptions.classList.remove('show');
 });
