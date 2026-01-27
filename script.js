@@ -171,12 +171,17 @@ zoomOutItem.addEventListener('click', function (event) {
 const notesMenuToggle = document.getElementById('notes-menu-toggle');
 const notesMenu = document.getElementById('notes-menu');
 const notesList = document.getElementById('notes-list');
+const toggleIcon = notesMenuToggle.querySelector('.toggle-icon');
 
 // Toggle notes menu
 notesMenuToggle.addEventListener('click', function () {
   notesMenu.classList.toggle('open');
+  // Update icon based on menu state
   if (notesMenu.classList.contains('open')) {
+    toggleIcon.textContent = '>';
     refreshNotesList();
+  } else {
+    toggleIcon.textContent = '<';
   }
 });
 
@@ -184,6 +189,7 @@ notesMenuToggle.addEventListener('click', function () {
 document.addEventListener('click', function (event) {
   if (!notesMenu.contains(event.target) && !notesMenuToggle.contains(event.target)) {
     notesMenu.classList.remove('open');
+    toggleIcon.textContent = '<';
   }
 });
 
