@@ -31,9 +31,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Prioritize the URL parameter content over local storage
   if (compressedNote) {
-    const decompressedNote = LZString.decompressFromEncodedURIComponent(compressedNote);
-    editor.value = decompressedNote;
-    localStorage.setItem(storageKey, decompressedNote);
+    if (window.LZString && typeof LZString.decompressFromEncodedURIComponent === 'function') {
+      const decompressedNote = LZString.decompressFromEncodedURIComponent(compressedNote);
+      if (typeof decompressedNote === 'string') {
+        editor.value = decompressedNote;
+        localStorage.setItem(storageKey, decompressedNote);
+      } else {
+        editor.value = '';
+        showToast('Invalid share link.');
+      }
+    } else {
+      editor.value = '';
+      showToast('Sharing library failed to load.');
+    }
     const url = new URL(window.location.href);
     const newPath = url.origin + url.pathname; // This will include the path but not the query parameters
     history.replaceState(null, null, newPath);
@@ -48,8 +58,18 @@ document.addEventListener("DOMContentLoaded", function () {
     - Share notes between clients by clicking the "Share" button.
     - Access ${domain}/<custom_path> to create individual notes with custom paths. Each path is its own separate note.
     - It even works with multiple levels of paths!`;
+  const persistNote = () => localStorage.setItem(storageKey, editor.value);
+  let persistTimeout;
+
   editor.addEventListener('input', function () {
-    localStorage.setItem(storageKey, editor.value);
+    clearTimeout(persistTimeout);
+    persistTimeout = setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(persistNote, { timeout: 500 });
+      } else {
+        persistNote();
+      }
+    }, 200);
   });
 
   // Restore zoom level from localStorage
@@ -66,6 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to generate shareable URL
 function generateShareableUrl(note) {
+  if (!window.LZString || typeof LZString.compressToEncodedURIComponent !== 'function') {
+    showToast('Sharing library failed to load.');
+    return null;
+  }
   const compressed = LZString.compressToEncodedURIComponent(note);
   const newUrl = new URL(window.location.href);
   newUrl.searchParams.set('note', compressed);
@@ -73,11 +97,13 @@ function generateShareableUrl(note) {
 }
 
 // Function to show toast notification
+let toastTimeout;
 function showToast(message) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
   toast.style.visibility = 'visible';
-  setTimeout(() => toast.style.visibility = 'hidden', 3000);
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => (toast.style.visibility = 'hidden'), 3000);
 }
 
 // Function to copy text to clipboard
@@ -85,7 +111,7 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(function () {
     showToast('Shareable link copied to clipboard!');
   }).catch(function (err) {
-    showToast('Could not copy text: ', err);
+    showToast(`Could not copy text: ${err?.message || err}`);
   });
 }
 
@@ -107,10 +133,12 @@ menuIcon.addEventListener('click', function () {
 });
 
 // SHARE BUTTON
-shareItem.addEventListener('click', function () {
+shareItem.addEventListener('click', function (event) {
   const editor = document.getElementById('editor');
   const shareableUrl = generateShareableUrl(editor.value);
-  copyToClipboard(shareableUrl);
+  if (shareableUrl) {
+    copyToClipboard(shareableUrl);
+  }
   event.stopPropagation();
   menuOptions.classList.remove('show');
 });
@@ -251,7 +279,7 @@ editorElement.addEventListener('input', function () {
     if (notesMenu.classList.contains('open')) {
       refreshNotesList();
     }
-  }, 1000);
+  }, 800);
 });
 
 // Initial refresh when page loads
