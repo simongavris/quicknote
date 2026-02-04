@@ -40,6 +40,26 @@ docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build
 
 This will run the container mapped to http://localhost:8080 for local development.
 
+## Production Redeploy (keep client notes)
+Client notes are stored in browser localStorage, so redeploying the server does not delete them.
+
+1. Pull the latest code:
+```bash
+git pull
+```
+
+2. Rebuild and recreate the container:
+```bash
+docker-compose build --no-cache
+docker-compose up -d --force-recreate
+```
+
+3. If a client still sees an old UI, refresh the Service Worker without clearing site data (do not clear storage):
+* Hard refresh the page (Shift+Reload), or
+* In DevTools → Application → Service Workers, click "Update" and then reload.
+
+This updates cached assets while preserving localStorage notes.
+
 ## How to Use
 * Access the app via your browser at the configured domain.
 * Start typing to use the text editor.
