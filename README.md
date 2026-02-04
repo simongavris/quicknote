@@ -50,8 +50,8 @@ git pull
 
 2. Rebuild and recreate the container:
 ```bash
-docker-compose build --no-cache
-docker-compose up -d --force-recreate
+docker compose build --no-cache
+docker compose up -d --force-recreate
 ```
 
 3. If a client still sees an old UI, refresh the Service Worker without clearing site data (do not clear storage):
